@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/plugins/custom_props" >
+        <file>icon.svg</file>
+        <file>images/background2.svg</file>
+        <file>images/emblema_eagle.svg</file>
+    </qresource>
+</RCC>

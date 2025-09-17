@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CustomPropsDialogBase</class>
+ <widget class="QDialog" name="CustomPropsDialogBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>473</width>
+    <height>743</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>473</width>
+    <height>743</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>473</width>
+    <height>743</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Custom Props</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog {
+
+
+	background-image: url(:/plugins/custom_props/images/background2.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: #fafafa;
+
+
+}
+
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLineEdit" name="txtFilter">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit#txtFilter {
+    background: #ffffff;
+    border: 1px solid #c9d6e2;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 10.5pt;
+    color: #1f2d3d;
+}
+
+QLineEdit#txtFilter:focus {
+    border: 1px solid #2980b9;     /* blu principale */
+    box-shadow: 0 0 0 3px rgba(41,128,185,0.15);  /* glow leggero */
+}
+
+QLineEdit#txtFilter:disabled {
+    background: #f2f4f7;
+    color: #9aa5b1;
+    border: 1px solid #e1e7ef;
+}</string>
+       </property>
+       <property name="placeholderText">
+        <string>Filter keys/values…</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableView" name="tblProps">
+       <property name="styleSheet">
+        <string notr="true">QTableView#tblProps {
+    background: #ffffff;
+    border: 1px solid #c9d6e2;
+    border-radius: 10px;
+    gridline-color: #e6eef6;
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 10pt;
+    /* testo scuro anche in selezione */
+    selection-background-color: #d7ebff;  /* azzurro chiaro */
+    selection-color: #0f2a3d;
+    alternate-background-color: #fafcff;
+    outline: 0; /* niente rettangolo focus per-cella */
+}
+
+/* Header */
+QHeaderView::section {
+    background: #f4f8fb;
+    color: #1f2d3d;
+    border: none;
+    border-right: 1px solid #e6eef6;
+    padding: 8px 10px;
+    font-weight: 600;
+}
+QHeaderView::section:last { border-right: none; }
+QHeaderView::section:pressed { background: #eaf3fa; }
+
+/* Celle */
+QTableView#tblProps::item { padding: 6px 8px; }
+
+/* Hover su riga NON selezionata */
+QTableView#tblProps::item:hover {
+    background: #f5faff;
+    color: #1f2d3d;
+}
+
+/* Selezione riga */
+QTableView#tblProps::item:selected {
+    background: #d7ebff;
+    color: #0f2a3d;
+}
+
+/* Hover sulla riga selezionata: mantieni leggibile */
+QTableView#tblProps::item:selected:hover {
+    background: #c9e3ff;
+    color: #0f2a3d;
+}
+
+/* Scrollbar leggere */
+QTableView#tblProps QScrollBar:vertical,
+QTableView#tblProps QScrollBar:horizontal { background: transparent; border: none; }
+QTableView#tblProps QScrollBar::handle { background: #c9d6e2; border-radius: 6px; }
+QTableView#tblProps QScrollBar::handle:hover { background: #a9bdcf; }
+QTableView#tblProps QScrollBar:vertical { width: 10px; }
+QTableView#tblProps QScrollBar:horizontal { height: 10px; }
+</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>14</width>
+       <height>15</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="centerRow">
+     <item>
+      <spacer name="leftSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::MinimumExpanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QFrame" name="cardFrame">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+#cardFrame {
+  background: white;
+  border: 1px solid rgba(0,0,0,40%);
+  border-radius: 12px;
+}
+#btnAdd, #btnRemove, #btnRefresh {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+  font-size: 10.5pt;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
+#btnAdd:hover, #btnRemove:hover, #btnRefresh:hover {
+  background-color: #3498db;
+}
+#btnAdd:pressed, #btnRemove:pressed, #btnRefresh:pressed {
+  background-color: #1f6391;
+}
+#btnAdd:disabled, #btnRemove:disabled, #btnRefresh:disabled {
+  background-color: #95a5a6;
+  color: #ecf0f1;
+}
+QLineEdit, QComboBox {
+  min-height: 28px;
+}
+         </string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="cardVBox">
+        <property name="spacing">
+         <number>12</number>
+        </property>
+        <property name="leftMargin">
+         <number>16</number>
+        </property>
+        <property name="topMargin">
+         <number>16</number>
+        </property>
+        <property name="rightMargin">
+         <number>16</number>
+        </property>
+        <property name="bottomMargin">
+         <number>12</number>
+        </property>
+        <item>
+         <layout class="QFormLayout" name="formLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::ExpandingFieldsGrow</enum>
+          </property>
+          <property name="labelAlignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="user_6">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Be Vietnam Pro</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Layer:</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="cmbLayer">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QComboBox#cmbLayer,
+QComboBox#cmbType {
+    background: #ffffff;
+    border: 1px solid #c9d6e2;
+    border-radius: 8px;
+    padding: 2px 24px 2px 6px;   /* spazio per la freccia */
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 10.5pt;
+    color: #1f2d3d;
+    min-height: 28px;
+}
+
+QComboBox#cmbLayer:focus,
+QComboBox#cmbType:focus {
+    border: 1px solid #2980b9;
+}
+</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="user_7">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Be Vietnam Pro</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Key:</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="txtKey">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLineEdit#txtKey,
+QLineEdit#txtValue {
+    background: #ffffff;
+    border: 1px solid #c9d6e2;
+    border-radius: 8px;
+    padding: 2px 4px;
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 10.5pt;
+    color: #1f2d3d;
+    min-height: 28px;
+}
+QLineEdit#txtKey:focus,
+QLineEdit#txtValue:focus {
+    border: 1px solid #2980b9;
+    box-shadow: 0 0 0 3px rgba(41,128,185,0.15);
+}
+QLineEdit#txtKey:disabled,
+QLineEdit#txtValue:disabled {
+    background: #f2f4f7;
+    color: #9aa5b1;
+    border: 1px solid #e1e7ef;
+}
+</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="user_10">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Be Vietnam Pro</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Type:</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="cmbType">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QComboBox#cmbLayer,
+QComboBox#cmbType {
+    background: #ffffff;
+    border: 1px solid #c9d6e2;
+    border-radius: 8px;
+    padding: 2px 24px 2px 6px;   /* spazio per la freccia */
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 10.5pt;
+    color: #1f2d3d;
+    min-height: 28px;
+}
+
+QComboBox#cmbLayer:focus,
+QComboBox#cmbType:focus {
+    border: 1px solid #2980b9;
+}
+</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>String</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Integer</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Float</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Bool</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>JSON</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="user_11">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Be Vietnam Pro</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Value:</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="txtValue">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLineEdit#txtKey,
+QLineEdit#txtValue {
+    background: #ffffff;
+    border: 1px solid #c9d6e2;
+    border-radius: 8px;
+    padding: 2px 4px;
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 10.5pt;
+    color: #1f2d3d;
+    min-height: 28px;
+}
+QLineEdit#txtKey:focus,
+QLineEdit#txtValue:focus {
+    border: 1px solid #2980b9;
+    box-shadow: 0 0 0 3px rgba(41,128,185,0.15);
+}
+QLineEdit#txtKey:disabled,
+QLineEdit#txtValue:disabled {
+    background: #f2f4f7;
+    color: #9aa5b1;
+    border: 1px solid #e1e7ef;
+}
+</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="buttonsRow">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <item>
+           <spacer name="buttonsRightSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btnAdd">
+            <property name="styleSheet">
+             <string notr="true">#btnAdd, #btnRemove, #btnRefresh {
+    background-color: #2980b9;     /* blu principale */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 3px 8px;
+
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;             /* grassetto */
+    letter-spacing: 0.5px;         /* spaziatura leggera */
+}
+
+#btnAdd:hover, #btnRemove:hover, #btnRefresh:hover {
+    background-color: #3498db;     /* blu più chiaro */
+}
+
+#btnAdd:pressed, #btnRemove:pressed, #btnRefresh:pressed {
+    background-color: #1f6391;     /* blu scuro */
+}
+
+#btnAdd:disabled, #btnRemove:disabled, #btnRefresh:disabled {
+    background-color: #95a5a6;
+    color: #ecf0f1;
+}
+</string>
+            </property>
+            <property name="text">
+             <string>Add/Update</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btnRemove">
+            <property name="styleSheet">
+             <string notr="true">#btnAdd, #btnRemove, #btnRefresh {
+    background-color: #2980b9;     /* blu principale */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 3px 8px;
+
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;             /* grassetto */
+    letter-spacing: 0.5px;         /* spaziatura leggera */
+}
+
+#btnAdd:hover, #btnRemove:hover, #btnRefresh:hover {
+    background-color: #3498db;     /* blu più chiaro */
+}
+
+#btnAdd:pressed, #btnRemove:pressed, #btnRefresh:pressed {
+    background-color: #1f6391;     /* blu scuro */
+}
+
+#btnAdd:disabled, #btnRemove:disabled, #btnRefresh:disabled {
+    background-color: #95a5a6;
+    color: #ecf0f1;
+}
+</string>
+            </property>
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btnRefresh">
+            <property name="styleSheet">
+             <string notr="true">#btnAdd, #btnRemove, #btnRefresh {
+    background-color: #2980b9;     /* blu principale */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 3px 8px;
+
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;             /* grassetto */
+    letter-spacing: 0.5px;         /* spaziatura leggera */
+}
+
+#btnAdd:hover, #btnRemove:hover, #btnRefresh:hover {
+    background-color: #3498db;     /* blu più chiaro */
+}
+
+#btnAdd:pressed, #btnRemove:pressed, #btnRefresh:pressed {
+    background-color: #1f6391;     /* blu scuro */
+}
+
+#btnAdd:disabled, #btnRemove:disabled, #btnRefresh:disabled {
+    background-color: #95a5a6;
+    color: #ecf0f1;
+}
+</string>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="buttonsRightSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="rightSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::MinimumExpanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>14</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QFrame" name="frame_6">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <property name="spacing">
+       <number>12</number>
+      </property>
+      <property name="leftMargin">
+       <number>64</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>64</number>
+      </property>
+      <property name="bottomMargin">
+       <number>20</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Segoe UI</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Created by</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="eagle">
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="resources.qrc">:/plugins/custom_props/images/emblema_eagle.svg</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="eagle_2">
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="resources.qrc">:/plugins/custom_props/icon.svg</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+  <zorder>frame_6</zorder>
+  <zorder>verticalSpacer</zorder>
+  <zorder>layoutWidget</zorder>
+  <zorder>verticalLayoutWidget</zorder>
+  <zorder>verticalSpacer_2</zorder>
+ </widget>
+ <tabstops>
+  <tabstop>cmbLayer</tabstop>
+  <tabstop>txtKey</tabstop>
+  <tabstop>cmbType</tabstop>
+  <tabstop>txtValue</tabstop>
+  <tabstop>btnAdd</tabstop>
+  <tabstop>btnRemove</tabstop>
+  <tabstop>btnRefresh</tabstop>
+ </tabstops>
+ <connections/>
+</ui>
