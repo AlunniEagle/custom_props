@@ -39,7 +39,7 @@ The plugin will now be available in the toolbar and under the **Plugins** menu.
 ### 2. From source (for developers)
 1. Download or clone this repository:
    ```bash
-   git clone https://github.com/eagleprojects/custom-props.git
+   git clone https://github.com/eagleprojects/custom_props.git
    ```
 2. Copy the folder into your QGIS plugin directory:
    - **Linux:** `~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/`
