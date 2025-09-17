@@ -3,7 +3,7 @@ name=Custom Props
 qgisMinimumVersion=3.0
 description=Inspect, filter and manage custom properties of QGIS project layers
 version=1.1.0
-author=GIS Team by Eagleprojects
+author=GIS Team Eagleprojects S.p.A. [Lorenzo Alunni, Marco Peppucci]
 email=gis@eagleprojects.it
 
 about=Custom Props is a QGIS plugin that lets you view, filter, add, update and remove custom properties (key–value pairs) associated with project layers. It provides dynamic search, per-layer filtering, type detection, JSON validation, confirmation dialogs for changes, and automatic refresh when layers are modified. A lightweight but powerful tool for debugging, data analysis and plugin development.
