@@ -1,0 +1,6 @@
+# Python
+__pycache__/
+*.pyc
+
+# Claude Code: impostazioni locali, non portabili in un clone
+.claude/settings.local.json

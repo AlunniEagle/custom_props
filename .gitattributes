@@ -1,0 +1,10 @@
+* text=auto
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.zip binary
+
+# resources.py ha blob storicamente CRLF nel repo:
+# senza questa riga una rinormalizzazione genererebbe 3282 righe di soli CR
+resources.py -text
